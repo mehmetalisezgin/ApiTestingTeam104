@@ -1,9 +1,7 @@
 package day03;
 
 import io.restassured.response.Response;
-
-import org.hamcrest.Matchers;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -15,6 +13,7 @@ public class C03_GetRequest {
     private String bookingID240Herokuapp = "https://restful-booker.herokuapp.com/booking/240";
     private String userID2ReqresIn = "https://reqres.in/api/users/2";
     private String UserID3ReqresIn = "https://reqres.in/api/users/3";
+
 
 
     @Test

@@ -1,7 +1,8 @@
 package day03;
 
 import io.restassured.response.Response;
-import org.testng.annotations.Test;
+import org.junit.Test;
+
 
 import static io.restassured.RestAssured.given;
 
@@ -15,7 +16,7 @@ public class C01_GetRequest {
        // We are using Response interface
        Response response = given().when().get(usersReqresIn);
 
-       // response.prettyPrint() ; // ot brings us the body of the data (url)
+       // response.prettyPrint() ; // it brings us the body of the data (url)
        response.prettyPeek() ; // it brings us all data about the url
       // response.then().log().all();
 
