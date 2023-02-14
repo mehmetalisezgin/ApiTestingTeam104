@@ -1,5 +1,7 @@
 package utilities;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 public class TestData {
@@ -32,8 +34,35 @@ public class TestData {
     }
 
 
+    //JSONObject test data
+    public static JSONObject getRequestData(){
+        JSONObject  bookingdates = new JSONObject() ;
+        bookingdates.put("checkin","2017-07-10");
+        bookingdates.put("checkout","2022-08-23");
+
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("firstname","Jim");
+        expectedData.put("lastname", "Jones");
+        expectedData.put("totalprice", 741);
+        expectedData.put("depositpaid", true);
+        expectedData.put("bookingdates",bookingdates );
+        return expectedData;
+    }
 
 
+    public static JSONObject setUpBookingData(){
+        JSONObject  bookingdates = new JSONObject() ;
+        bookingdates.put("checkin","2023-03-10");
+        bookingdates.put("checkout","2023-03-23");
+
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("firstname","Mehmet");
+        expectedData.put("lastname", "Sezgin");
+        expectedData.put("totalprice", 1250);
+        expectedData.put("depositpaid", true);
+        expectedData.put("bookingdates",bookingdates );
+        return expectedData;
+    }
 
 
 }

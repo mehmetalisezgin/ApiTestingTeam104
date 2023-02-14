@@ -22,9 +22,13 @@ public class BaseUrl {
     }
 
 
+    public static String jsonPlaceHolder(int id){
+        return "https://jsonplaceholder.typicode.com/todos/"+id+"";
+    }
 
-
-
+    public static String createBooking(){
+         return "https://restful-booker.herokuapp.com/booking" ;
+    }
 
 
 }
