@@ -6,9 +6,8 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static day03.BaseUrl.bookingUserID;
+import static utilities.BaseUrl.bookingUserID;
 import static io.restassured.RestAssured.given;
-import static utilities.ApiCalls.jsonPlaceHolderDeSerialization;
 import static utilities.ApiCalls.jsonPlaceHolderJSONObject;
 import static utilities.TestData.getRequestData;
 

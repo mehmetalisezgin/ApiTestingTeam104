@@ -3,7 +3,7 @@ package day04;
 import io.restassured.response.Response;
 import org.junit.Test;
 
-import static day03.BaseUrl.userJsonPlaceHolderId;
+import static utilities.BaseUrl.userJsonPlaceHolderId;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 

@@ -8,10 +8,11 @@ import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
-import static day03.BaseUrl.*;
+import static utilities.BaseUrl.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static utilities.Authentication.generateToken;
+import static utilities.BaseUrlInterface.*;
 
 
 public class ApiCalls {
@@ -252,5 +253,131 @@ public class ApiCalls {
         Assert.assertEquals(expectedData.getJSONObject("bookingdates").getString("checkout"), actualData.getString("booking.bookingdates.checkout"));
         return response;
     }
+
+
+    public static Response createBookingDataHashMap(int statuscode, String firstname, String lastname,
+                                                      int totalprice, boolean depositpaid, String checkin, String checkout) {
+        // Test data
+        HashMap<String,Object> bookingdates = new HashMap<>();
+        bookingdates.put("checkin", checkin);
+        bookingdates.put("checkout", checkout);
+
+        HashMap<String,Object> expectedData = new HashMap<>();
+        expectedData.put("firstname", firstname);
+        expectedData.put("lastname", lastname);
+        expectedData.put("totalprice", totalprice);
+        expectedData.put("depositpaid", depositpaid);
+        expectedData.put("bookingdates", bookingdates);
+
+
+        //Request and Response
+        Response response = given().contentType("application/json")
+                .header("Authorization", "Bearer " + generateToken())
+                .body(expectedData) // if you are using HashMap we do not need to add .toString()
+                .when()
+                .post(createBookingFromInterface());
+        response.prettyPrint();
+        // Verify ( did we create data or not)
+        JsonPath actualData = response.jsonPath()   ;//De-Serialization
+
+        Assert.assertEquals(firstname, actualData.getString("booking.firstname"));
+        Assert.assertEquals(lastname, actualData.getString("booking.lastname"));
+        Assert.assertEquals(totalprice, actualData.getInt("booking.totalprice"));
+        Assert.assertEquals(depositpaid, actualData.getBoolean("booking.depositpaid"));
+        Assert.assertEquals(checkin, actualData.get("booking.bookingdates.checkin"));
+        Assert.assertEquals(checkout, actualData.get("booking.bookingdates.checkout"));
+        return response;
+    }
+
+    public static Response jsonPlaceHolderPostMethodMacthersClass(int statuscode,int userId,String title,boolean completed){
+        // Request and Response data
+        HashMap<String,Object> expectedData = new HashMap<>();
+        expectedData.put("userId",userId);
+        expectedData.put("title",title);
+        expectedData.put("completed",completed);
+
+        //Request and Response
+        Response response = given().contentType("application/json")
+                .body(expectedData)
+                .when()
+                .post(createJsonPlaceHolder()) ;
+        response.prettyPrint() ;
+
+        // Verify
+        // 1st MacthersClass
+
+        response.then().statusCode(statuscode)
+                .body("userId",equalTo(userId),
+                        "title",equalTo(title),
+                        "completed",equalTo(completed)) ;
+        return response ;
+    }
+
+    public static Response jsonPlaceHolderPostMethodJsonPath(int statuscode,int userId,String title,boolean completed){
+        // Request and Response data
+        HashMap<String,Object> expectedData = new HashMap<>();
+        expectedData.put("userId",userId);
+        expectedData.put("title",title);
+        expectedData.put("completed",completed);
+
+        //Request and Response
+        Response response = given().contentType("application/json")
+                .body(expectedData)
+                .when()
+                .post(createJsonPlaceHolder()) ;
+        response.prettyPrint() ;
+        response.then().statusCode(statuscode);
+        // 2nd JsonPath
+        JsonPath actualData = response.jsonPath();
+        Assert.assertEquals(userId,actualData.getInt("userId"));
+        Assert.assertEquals(title,actualData.getString("title"));
+        Assert.assertEquals(completed,actualData.getBoolean("completed"));
+        return response ;
+    }
+
+    public static Response jsonPlaceHolderPostMethodDeSerialization(int statuscode,double userId,String title,boolean completed){
+        // Request and Response data
+        HashMap<String,Object> expectedData = new HashMap<>();
+        expectedData.put("userId",userId);
+        expectedData.put("title",title);
+        expectedData.put("completed",completed);
+        //Request and Response
+        Response response = given().contentType("application/json")
+                .body(expectedData)
+                .when()
+                .post(createJsonPlaceHolder()) ;
+        response.prettyPrint() ;
+        response.then().statusCode(statuscode);
+
+        // 3rd De-Serialization ==> from json to java
+        HashMap<String,Object> actualDataHashMap = response.as(HashMap.class);
+        Assert.assertEquals(expectedData.get("userId"),actualDataHashMap.get("userId"));
+        Assert.assertEquals(expectedData.get("title"),actualDataHashMap.get("title"));
+        Assert.assertEquals(expectedData.get("completed"),actualDataHashMap.get("completed"));
+
+        return response ;
+    }
+
+    public static Response deleteEmployee(int id, int statuscode, String status,String data, String message){
+        // expected data when we delete this data should return
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("status",status);
+        expectedData.put("data",data);
+        expectedData.put("message",message);
+
+        // Request and Response
+        Response response = given()
+                .when().delete(deleteEmployeeById(id));
+
+        // Verify with Matchers Class
+        response.then().assertThat().statusCode(statuscode)
+                .body("status",equalTo(status),"data",equalTo(data),
+                        "message",equalTo(message));
+
+        return response;
+    }
+
+
+
 
 }

@@ -1,9 +1,7 @@
 package day04;
 
-import day03.BaserUrlSpec;
-import io.restassured.path.json.JsonPath;
+import utilities.BaserUrlSpec;
 import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;

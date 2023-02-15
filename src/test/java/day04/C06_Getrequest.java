@@ -1,8 +1,7 @@
 package day04;
 
-import day03.BaserUrlSpec;
+import utilities.BaserUrlSpec;
 import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 

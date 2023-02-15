@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static day03.BaseUrl.createBooking;
+import static utilities.BaseUrl.createBooking;
 import static io.restassured.RestAssured.given;
 import static utilities.ApiCalls.createBookingData;
 import static utilities.TestData.setUpBookingData;
@@ -58,7 +58,7 @@ public class C15_PostRequest {
  */
    @Test
    public void createBookingTest01(){
-      createBookingData(200,"ErvaNaz","Sezgin",500,
+      createBookingData(200,"Erva","Sezgin",500,
               true,"2023-03-02","2023-03-05") ;
    }
 

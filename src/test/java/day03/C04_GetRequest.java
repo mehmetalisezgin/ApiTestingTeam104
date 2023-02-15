@@ -3,7 +3,7 @@ package day03;
 import io.restassured.response.Response;
 import org.junit.Test;
 
-import static day03.BaseUrl.userIDHerokuapp;
+import static utilities.BaseUrl.userIDHerokuapp;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 

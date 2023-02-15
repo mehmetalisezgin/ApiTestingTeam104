@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static day03.BaseUrl.bookingUserID;
+import static utilities.BaseUrl.bookingUserID;
 import static io.restassured.RestAssured.given;
 import static utilities.ApiCalls.deSerializationMethod;
 import static utilities.TestData.getBookingData;

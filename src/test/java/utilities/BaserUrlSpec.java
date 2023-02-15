@@ -1,4 +1,4 @@
-package day03;
+package utilities;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;

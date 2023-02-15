@@ -1,6 +1,6 @@
 package day04;
 
-import day03.BaserUrlSpec;
+import utilities.BaserUrlSpec;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;

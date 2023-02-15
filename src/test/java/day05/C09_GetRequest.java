@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static day03.BaseUrl.employees;
+import static utilities.BaseUrl.employees;
 import static io.restassured.RestAssured.given;
 
 public class C09_GetRequest {
