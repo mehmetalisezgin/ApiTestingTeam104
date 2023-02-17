@@ -1,6 +1,6 @@
 package day04;
 
-import utilities.BaserUrlSpec;
+import utilities.BaseUrlSpec;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class C08_GetRequest extends BaserUrlSpec {
+public class C08_GetRequest extends BaseUrlSpec {
 
     @Test
     public void userReqresIn() {

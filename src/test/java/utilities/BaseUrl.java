@@ -14,10 +14,12 @@ public class BaseUrl {
 
 
     public static String userJsonPlaceHolderId(int id){
+
          return "https://jsonplaceholder.typicode.com/todos/"+id+"" ;
     }
 
     public static String employees(){
+
          return "http://dummy.restapiexample.com/api/v1/employees";
     }
 

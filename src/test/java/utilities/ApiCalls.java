@@ -1,13 +1,21 @@
 package utilities;
 
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.junit.Assert;
+import pojos.Booking.BookingDates;
+import pojos.Booking.BookingPojo;
+import pojos.Booking.BookingResponse;
+import pojos.JsonPlaceHolder.JsonPlaceHolderPojo;
+import pojos.Employee.RequestEmployeeData;
+import pojos.Employee.ResponseEmployeeData;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import static utilities.BaseUrl.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -256,13 +264,13 @@ public class ApiCalls {
 
 
     public static Response createBookingDataHashMap(int statuscode, String firstname, String lastname,
-                                                      int totalprice, boolean depositpaid, String checkin, String checkout) {
+                                                    int totalprice, boolean depositpaid, String checkin, String checkout) {
         // Test data
-        HashMap<String,Object> bookingdates = new HashMap<>();
+        HashMap<String, Object> bookingdates = new HashMap<>();
         bookingdates.put("checkin", checkin);
         bookingdates.put("checkout", checkout);
 
-        HashMap<String,Object> expectedData = new HashMap<>();
+        HashMap<String, Object> expectedData = new HashMap<>();
         expectedData.put("firstname", firstname);
         expectedData.put("lastname", lastname);
         expectedData.put("totalprice", totalprice);
@@ -278,7 +286,7 @@ public class ApiCalls {
                 .post(createBookingFromInterface());
         response.prettyPrint();
         // Verify ( did we create data or not)
-        JsonPath actualData = response.jsonPath()   ;//De-Serialization
+        JsonPath actualData = response.jsonPath();//De-Serialization
 
         Assert.assertEquals(firstname, actualData.getString("booking.firstname"));
         Assert.assertEquals(lastname, actualData.getString("booking.lastname"));
@@ -289,81 +297,81 @@ public class ApiCalls {
         return response;
     }
 
-    public static Response jsonPlaceHolderPostMethodMacthersClass(int statuscode,int userId,String title,boolean completed){
+    public static Response jsonPlaceHolderPostMethodMacthersClass(int statuscode, int userId, String title, boolean completed) {
         // Request and Response data
-        HashMap<String,Object> expectedData = new HashMap<>();
-        expectedData.put("userId",userId);
-        expectedData.put("title",title);
-        expectedData.put("completed",completed);
+        HashMap<String, Object> expectedData = new HashMap<>();
+        expectedData.put("userId", userId);
+        expectedData.put("title", title);
+        expectedData.put("completed", completed);
 
         //Request and Response
         Response response = given().contentType("application/json")
                 .body(expectedData)
                 .when()
-                .post(createJsonPlaceHolder()) ;
-        response.prettyPrint() ;
+                .post(createJsonPlaceHolder());
+        response.prettyPrint();
 
         // Verify
         // 1st MacthersClass
 
         response.then().statusCode(statuscode)
-                .body("userId",equalTo(userId),
-                        "title",equalTo(title),
-                        "completed",equalTo(completed)) ;
-        return response ;
+                .body("userId", equalTo(userId),
+                        "title", equalTo(title),
+                        "completed", equalTo(completed));
+        return response;
     }
 
-    public static Response jsonPlaceHolderPostMethodJsonPath(int statuscode,int userId,String title,boolean completed){
+    public static Response jsonPlaceHolderPostMethodJsonPath(int statuscode, int userId, String title, boolean completed) {
         // Request and Response data
-        HashMap<String,Object> expectedData = new HashMap<>();
-        expectedData.put("userId",userId);
-        expectedData.put("title",title);
-        expectedData.put("completed",completed);
+        HashMap<String, Object> expectedData = new HashMap<>();
+        expectedData.put("userId", userId);
+        expectedData.put("title", title);
+        expectedData.put("completed", completed);
 
         //Request and Response
         Response response = given().contentType("application/json")
                 .body(expectedData)
                 .when()
-                .post(createJsonPlaceHolder()) ;
-        response.prettyPrint() ;
+                .post(createJsonPlaceHolder());
+        response.prettyPrint();
         response.then().statusCode(statuscode);
         // 2nd JsonPath
         JsonPath actualData = response.jsonPath();
-        Assert.assertEquals(userId,actualData.getInt("userId"));
-        Assert.assertEquals(title,actualData.getString("title"));
-        Assert.assertEquals(completed,actualData.getBoolean("completed"));
-        return response ;
+        Assert.assertEquals(userId, actualData.getInt("userId"));
+        Assert.assertEquals(title, actualData.getString("title"));
+        Assert.assertEquals(completed, actualData.getBoolean("completed"));
+        return response;
     }
 
-    public static Response jsonPlaceHolderPostMethodDeSerialization(int statuscode,double userId,String title,boolean completed){
+    public static Response jsonPlaceHolderPostMethodDeSerialization(int statuscode, double userId, String title, boolean completed) {
         // Request and Response data
-        HashMap<String,Object> expectedData = new HashMap<>();
-        expectedData.put("userId",userId);
-        expectedData.put("title",title);
-        expectedData.put("completed",completed);
+        HashMap<String, Object> expectedData = new HashMap<>();
+        expectedData.put("userId", userId);
+        expectedData.put("title", title);
+        expectedData.put("completed", completed);
         //Request and Response
         Response response = given().contentType("application/json")
                 .body(expectedData)
                 .when()
-                .post(createJsonPlaceHolder()) ;
-        response.prettyPrint() ;
+                .post(createJsonPlaceHolder());
+        response.prettyPrint();
         response.then().statusCode(statuscode);
 
         // 3rd De-Serialization ==> from json to java
-        HashMap<String,Object> actualDataHashMap = response.as(HashMap.class);
-        Assert.assertEquals(expectedData.get("userId"),actualDataHashMap.get("userId"));
-        Assert.assertEquals(expectedData.get("title"),actualDataHashMap.get("title"));
-        Assert.assertEquals(expectedData.get("completed"),actualDataHashMap.get("completed"));
+        HashMap<String, Object> actualDataHashMap = response.as(HashMap.class);
+        Assert.assertEquals(expectedData.get("userId"), actualDataHashMap.get("userId"));
+        Assert.assertEquals(expectedData.get("title"), actualDataHashMap.get("title"));
+        Assert.assertEquals(expectedData.get("completed"), actualDataHashMap.get("completed"));
 
-        return response ;
+        return response;
     }
 
-    public static Response deleteEmployee(int id, int statuscode, String status,String data, String message){
+    public static Response deleteEmployee(int id, int statuscode, String status, String data, String message) {
         // expected data when we delete this data should return
         JSONObject expectedData = new JSONObject();
-        expectedData.put("status",status);
-        expectedData.put("data",data);
-        expectedData.put("message",message);
+        expectedData.put("status", status);
+        expectedData.put("data", data);
+        expectedData.put("message", message);
 
         // Request and Response
         Response response = given()
@@ -371,13 +379,194 @@ public class ApiCalls {
 
         // Verify with Matchers Class
         response.then().assertThat().statusCode(statuscode)
-                .body("status",equalTo(status),"data",equalTo(data),
-                        "message",equalTo(message));
+                .body("status", equalTo(status), "data", equalTo(data),
+                        "message", equalTo(message));
+
+        return response;
+    }
+
+    /*
+    {
+        "userId": 1,
+        "id": 2,
+        "title": "Team104",
+        "completed": false
+    }
+     */
+    public static Response patchRequestJsonPlaceHolder(int id, int statuscode, int userId, String title, boolean completed) {
+        // we will send this data for the patchrequest
+        JSONObject requestData = new JSONObject();
+        requestData.put("title", title);
+
+        // create Request and Response
+        Response response = given().contentType(ContentType.JSON)
+                .body(requestData.toString())// if our data is a JSONObject we sould add .toString method
+                .when()
+                .patch(jsonPlaceHolderUserId(id));
+        response.prettyPrint();
+        // Verify with Matchers class
+
+        response.then().assertThat().statusCode(statuscode)
+                .body("userId", equalTo(userId), "title", equalTo(title), "completed", equalTo(completed));
+        return response;
+    }
+
+    public static Response patchRequestJsonPlaceHolderJsonPath(int id, int statuscode, int userId, String title, boolean completed) {
+        // we will send this data for the patchrequest
+        JSONObject requestData = new JSONObject();
+        requestData.put("title", title);
+        // we will Assert these data
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("userId", userId);
+        expectedData.put("title", title);
+        expectedData.put("completed", completed);
+        // create Request and Response
+        Response response = given().contentType(ContentType.JSON)
+                .body(requestData.toString())// if our data is a JSONObject we sould add .toString method
+                .when()
+                .patch(jsonPlaceHolderUserId(id));
+        response.prettyPrint();
+        // Verify with Matchers class
+        response.then().assertThat().statusCode(statuscode);
+
+        //Verify with JsonPath  student will create
 
         return response;
     }
 
 
+    public static Response patchRequestJsonPlaceHolderDeSerialization(int id, int statuscode, int userId, String title, boolean completed) {
+        // we will send this data for the patchrequest
+        JSONObject requestData = new JSONObject();
+        requestData.put("title", title);
+        // we will Assert these data
+        JSONObject expectedData = new JSONObject();
+        expectedData.put("userId", userId);
+        expectedData.put("title", title);
+        expectedData.put("completed", completed);
+        // create Request and Response
+        Response response = given().contentType(ContentType.JSON)
+                .body(requestData.toString())// if our data is a JSONObject we sould add .toString method
+                .when()
+                .patch(jsonPlaceHolderUserId(id));
+        response.prettyPrint();
+        // Verify with Matchers class
+        response.then().assertThat().statusCode(statuscode);
 
+        //Verify with DeSerialization
+
+        return response;
+    }
+
+
+    public static Response pojoPostJasonPlaceHolder(int id, int statuscode, int userId, String title
+            , boolean completed) {
+        //expected data
+        JsonPlaceHolderPojo expectedData = new JsonPlaceHolderPojo();
+        expectedData.setId(id);
+        expectedData.setUserId(userId);
+        expectedData.setTitle(title);
+        expectedData.setCompleted(completed);
+
+        // Request and Response
+        Response response = given().contentType(ContentType.JSON)
+                .body(expectedData)
+                .when()
+                .post(createJsonPlaceHolder());
+        response.then().assertThat().statusCode(statuscode);
+        response.prettyPrint();
+
+        //Verify with De-Serialization
+        JsonPlaceHolderPojo actualData = response.as(JsonPlaceHolderPojo.class);
+        Assert.assertEquals(expectedData.getId(), actualData.getId());
+        Assert.assertEquals(expectedData.getUserId(), actualData.getUserId());
+        Assert.assertEquals(expectedData.getTitle(), actualData.getTitle());
+        Assert.assertEquals(expectedData.isCompleted(), actualData.isCompleted());
+        return response;
+    }
+
+
+    public static Response getEmployeeInnerPojoClass(int id, int statusCode,String employeeName
+    ,int salary,int age,String profile,String status,String message){
+        //Expected Data
+        RequestEmployeeData expectedData = new RequestEmployeeData();
+        expectedData.setId(id);
+        expectedData.setEmployee_name(employeeName);
+        expectedData.setEmployee_salary(salary);
+        expectedData.setEmployee_age(age);
+        expectedData.setProfile_image(profile);
+
+        ResponseEmployeeData expectedData2 = new ResponseEmployeeData();
+        expectedData2.setStatus(status);
+        expectedData2.setData(expectedData);
+        expectedData2.setMessage(message);
+        //Request And Response
+        Response response = given().contentType(ContentType.JSON)
+                .when()
+                .get(getEmployee(id));
+        response.then().assertThat().statusCode(statusCode) ;
+        response.prettyPrint();
+
+        ResponseEmployeeData actualData = response.as(ResponseEmployeeData.class);
+        Assert.assertEquals(expectedData2.getData().getId(),actualData.getData().getId());
+        Assert.assertEquals(expectedData2.getData().getEmployee_name(),actualData.getData().getEmployee_name());
+        Assert.assertEquals(expectedData2.getData().getEmployee_salary(),actualData.getData().getEmployee_salary());
+        Assert.assertEquals(expectedData2.getData().getEmployee_age(),actualData.getData().getEmployee_age());
+        Assert.assertEquals(expectedData2.getData().getProfile_image(),actualData.getData().getProfile_image());
+        Assert.assertEquals(expectedData2.getStatus(),actualData.getStatus());
+        Assert.assertEquals(expectedData2.getMessage(),actualData.getMessage());
+        return response ;
+    }
+
+    /*
+    {
+    "firstname" : "Omer",
+    "lastname" : "Can",
+    "totalprice" : 254,
+    "depositpaid" : false,
+    "bookingdates" : {
+        "checkin" : "2020-02-03",
+        "checkout" : "2020-02-10"
+    },
+    "additionalneeds" : "Breakfast"
+}
+     */
+
+    public static Response createBookingWithPojo(int statuscode,String firstname, String lastname
+    ,int totalprice, boolean depositpaid, String checkin, String checkout, String additionalneeds){
+
+      // to use pojo class we need to create object from thw pojo classes
+        BookingDates bookingDates = new BookingDates();
+        bookingDates.setCheckin(checkin);
+        bookingDates.setCheckout(checkout);
+
+        BookingPojo bookingPojo = new BookingPojo() ;
+        bookingPojo.setFirstname(firstname);
+        bookingPojo.setLastname(lastname);
+        bookingPojo.setTotalprice(totalprice);
+        bookingPojo.setDepositpaid(depositpaid);
+
+        BookingResponse booking = new BookingResponse();
+        booking.setBookingDates(bookingDates);
+        booking.setBookingPojo(bookingPojo);
+        booking.setAdditionalneeds(additionalneeds);
+
+        Response response = given().contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + generateToken())
+                .body(booking)
+                .when().post(createBookingFromInterface());
+        response.prettyPrint();
+        response.then().assertThat().statusCode(statuscode) ;
+        System.out.println(response.statusCode());
+        BookingResponse actualData = response.as(BookingResponse.class) ;
+        Assert.assertEquals(booking.getBookingPojo().getFirstname(),actualData.getBookingPojo().getFirstname());
+        Assert.assertEquals(booking.getBookingPojo().getLastname(),actualData.getBookingPojo().getLastname());
+        Assert.assertEquals(booking.getBookingPojo().getTotalprice(),actualData.getBookingPojo().getTotalprice());
+        Assert.assertEquals(booking.getBookingPojo().isDepositpaid(),actualData.getBookingPojo().isDepositpaid());
+        Assert.assertEquals(booking.getBookingDates().getCheckin(),actualData.getBookingDates().getCheckin());
+        Assert.assertEquals(booking.getBookingDates().getCheckout(),actualData.getBookingDates().getCheckout());
+        Assert.assertEquals(booking.getAdditionalneeds(),actualData.getAdditionalneeds());
+        return response;
+    }
 
 }

@@ -27,6 +27,9 @@ public class C01_GetRequest {
 
    }
 
+    // CV/RESUME
+    // 1-Herkes kendi cv/resume sini hazirlasin, sonra beraber uzerinden gececegiz
+    // JAVA-SELENIUM-API
 
 
 }

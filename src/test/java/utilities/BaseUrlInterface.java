@@ -17,4 +17,12 @@ public interface BaseUrlInterface {
          return "https://dummy.restapiexample.com/api/v1/delete/"+id+"";
     }
 
+    static String jsonPlaceHolderUserId(int id){
+       return "https://jsonplaceholder.typicode.com/todos/"+id+"";
+    }
+
+   static String getEmployee(int id){
+         return "http://dummy.restapiexample.com/api/v1/employee/"+id+"";
+   }
+
 }

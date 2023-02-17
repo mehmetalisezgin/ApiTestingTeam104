@@ -1,13 +1,13 @@
 package day04;
 
-import utilities.BaserUrlSpec;
+import utilities.BaseUrlSpec;
 import io.restassured.response.Response;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class C07_GetRequest extends BaserUrlSpec {
+public class C07_GetRequest extends BaseUrlSpec {
 
 /*
 {
