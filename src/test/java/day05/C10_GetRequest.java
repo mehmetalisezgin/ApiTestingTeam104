@@ -30,10 +30,17 @@ public class C10_GetRequest {
     }
 
     @Test
+    public void checkUserId14Exist(){
+        checkUserExistWithId(5,200,"mali@gmail.com","mehmet","ali");
+    }
+
+    @Test
     public void checkUserIdFiveExist() {
         // this is a Response method
         checkUsersExistWithId(5,200,"charles.morris@reqres.in","Charles","Morris");
     }
+
+
 
     @Test
     public void checkUserId6Exist() {

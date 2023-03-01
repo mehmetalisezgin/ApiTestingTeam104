@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class C03_GetRequest {
 
     private String bookingHerokuapp = "https://restful-booker.herokuapp.com/booking/";
-    private String bookingID240Herokuapp = "https://restful-booker.herokuapp.com/booking/240";
+    private String bookingID240Herokuapp = "https://restful-booker.herokuapp.com/booking/";
     private String userID2ReqresIn = "https://reqres.in/api/users/2";
     private String UserID3ReqresIn = "https://reqres.in/api/users/3";
 
@@ -52,7 +52,8 @@ public class C03_GetRequest {
     // we will verify the data with matcher class
     @Test
     public void bookingIdIsExist() {
-        Response response = given().when().get(bookingID240Herokuapp);
+        int id = 240;
+        Response response = given().when().get(bookingID240Herokuapp+id);
         response
                 .then()
                 .statusCode(200)
@@ -71,7 +72,7 @@ public class C03_GetRequest {
         "data": {
             "id": 2,
             "email": "janet.weaver@reqres.in",
-            "first_name": "Janet",
+            "first_name": "",
             "last_name": "Weaver",
             "avatar": "https://reqres.in/img/faces/2-image.jpg"
         },
@@ -98,7 +99,7 @@ public class C03_GetRequest {
                 .then()
                 .contentType("application/json")
                 .statusCode(200)
-                .body("data.first_name", equalTo("Janet"),
+                .body("data.first_name", equalTo("Janettt"),
                         "data.last_name", equalTo("Weaver"),
                         "data.email", equalTo("janet.weaver@reqres.in"),
                         "support.url", equalTo("https://reqres.in/#support-heading"),

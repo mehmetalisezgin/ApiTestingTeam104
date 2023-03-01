@@ -27,5 +27,20 @@ public class Authentication {
   }
 
 
+  public static String generateTokenTrendLife(){
+
+      String email = "info@trendlifebuy.com" ;
+      String password = "123123123" ;
+      String url = "https://trendlifebuy.com/api/login" ;
+      Map<String, Object> map = new HashMap<>() ;
+      map.put("email",email) ;
+      map.put("password",password) ;
+      Response response = given().contentType(ContentType.JSON)
+              .body(map).when().post(url) ;
+
+      JsonPath token = response.jsonPath() ;
+      return token.getString("token") ;
+  }
+
 
 }

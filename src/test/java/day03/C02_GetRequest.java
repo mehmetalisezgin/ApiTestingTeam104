@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
+import java.util.Scanner;
+
 import static io.restassured.RestAssured.given;
 
 public class C02_GetRequest {
@@ -36,10 +38,10 @@ public class C02_GetRequest {
 
     @Test
     public void bookingTestWithAssertion(){
-        Assert.assertEquals(response.statusCode(),200);
-        Assert.assertEquals(response.contentType(),"application/json; charset=utf-8");
-        Assert.assertEquals(response.header("Server"),"Cowboy");
-        Assert.assertEquals(response.statusLine(),"HTTP/1.1 200 OK");
+        Assert.assertEquals(200,response.statusCode());
+        Assert.assertEquals("application/json; charset=utf-8",response.contentType());
+        Assert.assertEquals("Cowboy",response.header("Server"));
+        Assert.assertEquals("HTTP/1.1 200 OK",response.statusLine());
     }
 
 
@@ -53,7 +55,6 @@ public class C02_GetRequest {
                 .header("Server","Cowboy")
                 .statusLine("HTTP/1.1 200 OK") ;
     }
-
 
 
 }

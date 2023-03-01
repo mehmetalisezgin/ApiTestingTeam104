@@ -31,16 +31,12 @@ public class C14_GetRequest {
         Assert.assertEquals(expectedData.getInt("totalprice"),actualData.getInt("totalprice"));
     }
 
-
     @Test
-    public void jsonPaleHolderTest(){
-        jsonPlaceHolderJSONObject(5,200,1,
+    public void jsonPaleHolderTest() {
+        jsonPlaceHolderJSONObject(5, 200, 1,
                 "laboriosam mollitia et enim quasi adipisci quia provident illum"
-                ,false);
+                , false);
     }
-
-
-
 
 
 

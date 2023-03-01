@@ -72,7 +72,7 @@ public class C08_GetRequest extends BaseUrlSpec {
                .statusCode(200)
                .contentType("application/json");
 
-       // Verify with JsonPath
+       // Verify with JsonPath// Difference between json and jsonPath
        JsonPath jsonPath = response.jsonPath();
        Assert.assertEquals("charles.morris@reqres.in",jsonPath.getString("data.email"));
        Assert.assertEquals("Charles",jsonPath.getString("data.first_name"));

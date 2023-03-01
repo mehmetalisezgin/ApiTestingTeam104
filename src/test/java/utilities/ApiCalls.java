@@ -136,6 +136,7 @@ public class ApiCalls {
     //Lets create a dynamic method with Matchers class
     public static Response jsonPlaceHolderMatcherClass(int id, int statuscode, int userId, String title, boolean completed) {
         Response response = given().when().get(jsonPlaceHolder(id));
+
         response.then().assertThat().statusCode(statuscode);
         response.then().body("userId", Matchers.equalTo(userId),
                 "title", equalTo(title), "completed", equalTo(completed));
@@ -145,7 +146,9 @@ public class ApiCalls {
     // Lets create a dynamic method with JsonPath
     public static Response jsonPlaceHolderJsonPath(int id, int statuscode, int userId, String title, boolean completed) {
         Response response = given().when().get(jsonPlaceHolder(id));
+
         response.then().assertThat().statusCode(statuscode);
+
         JsonPath jsonPath = response.jsonPath();
         Assert.assertEquals(userId, jsonPath.getInt("userId"));
         Assert.assertEquals(title, jsonPath.getString("title"));
@@ -155,7 +158,8 @@ public class ApiCalls {
 
 
     //Map De-Serialization dynamic method
-    public static Response jsonPlaceHolderDeSerialization(int id, int statuscode, double userId, String title, boolean completed) {
+    public static Response jsonPlaceHolderDeSerialization(int id, int statuscode, double userId,
+                                                          String title, boolean completed) {
 
         Map<String, Object> expectedData = new HashMap<>();
         expectedData.put("userId", userId);
@@ -175,7 +179,8 @@ public class ApiCalls {
     }
 
     //****************** JSONObject *******************
-    public static Response jsonPlaceHolderJSONObject(int id, int statuscode, double userId, String title, boolean completed) {
+    public static Response jsonPlaceHolderJSONObject(int id, int statuscode,
+                                                     double userId, String title, boolean completed) {
         //Test Data Created from JSONObject
         JSONObject expectedData = new JSONObject();
         expectedData.put("userId", userId);

@@ -39,7 +39,7 @@ public class C06_Getrequest extends BaseUrlSpec {
     @Test
     public void userId2ReqresIn() {
         //reqresIn bring us this url "https://reqres.in/" from the BaseUrlSpec class
-        reqresIn.pathParams("parameter1", "api", "parameter2", "users", "parameter3", 2);
+        reqresIn.pathParams("parameter1", "api", "parameter2", "users", "parameter3", 15);
         Response response = given()
                 .spec(reqresIn)
                 .when()
